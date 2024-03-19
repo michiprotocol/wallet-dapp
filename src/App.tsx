@@ -38,13 +38,7 @@ export default function App() {
 
 function Layout() {
   const { isConnected } = useAccount();
-  const location = useLocation();
-  const currentRoute = location.pathname;
-  if (currentRoute === Routes.ROOT) {
-    return (
-      <Landing />
-    )
-  }
+
   return (
     <div className="min-h-screen w-full bg-background text-info overflow-x-hidden">
       <NavBar />
