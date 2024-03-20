@@ -21,7 +21,7 @@ export default function NavBar() {
         <Logo />
         {isConnected && (
           <>
-            <Link to={Routes.MY_WALLETS} className={getLinkClass(currentRoute == Routes.MY_WALLETS)}>
+            <Link to={Routes.ROOT} className={getLinkClass(currentRoute == Routes.ROOT)}>
               My Wallets
             </Link>
             <Link to={Routes.TRADE} className={getLinkClass(currentRoute == Routes.TRADE)}>

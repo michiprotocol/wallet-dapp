@@ -17,10 +17,6 @@ export default function App() {
       children: [
         {
           path: Routes.ROOT,
-          element: <Landing />,
-        },
-        {
-          path: Routes.MY_WALLETS,
           element: <MyWallets />,
         },
         {
@@ -44,7 +40,7 @@ function Layout() {
       <NavBar />
       <div className="pt-[58px]">
         {isConnected ? (
-          <Outlet />
+            <MyWallets />
         ) : (
           <NotConnected />
         )}
