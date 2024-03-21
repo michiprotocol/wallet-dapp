@@ -4,8 +4,6 @@ import { Routes } from "@/constants/routes";
 
 export default function Landing() {
 
-
-
   return (
     <div className="landing-page flex flex-col xl:gap-0 gap-10 items-center min-h-screen w-full text-white bg-[#080A14]">
       <div className="fixed bg-[#080A14] bg-opacity-95 flex flex-col w-full">

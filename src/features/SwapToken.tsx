@@ -18,8 +18,8 @@ export default function SwapToken({
   tokenboundAccount: Address,
 }) {
   const [input, setInput] = useState<string>("");
-  const [receiveValue, setReceiveValue] = useState<string>("");
-  const [isProcessing, setIsProcessing] = useState<boolean>(false)
+  // const [receiveValue, setReceiveValue] = useState<string>("");
+  // const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
   return (
     <div className="flex flex-col w-full h-full gap-2">
