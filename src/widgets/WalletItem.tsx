@@ -151,7 +151,7 @@ export default function WalletItem({ wallet, index, removeWallet }: { wallet: Wa
   }, [tokenboundAccount, approvedTokens.data])
 
   return (
-    <WalletWrapper address={tokenboundAccount} name="Michi Chest" index={wallet.tokenId}>
+    <WalletWrapper address={tokenboundAccount} name="Michi Wallet NFT" index={wallet.tokenId}>
       <>
         <div className={
           cn(
