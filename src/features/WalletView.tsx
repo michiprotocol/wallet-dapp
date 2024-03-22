@@ -251,8 +251,8 @@ export default function WalletView(
                     <div className="flex flex-row gap-3">
                         {maxAmount && <button className="text-info text-sm underline underline-offset-2"
                                               onClick={() => setInput(maxAmount)}>MAX</button>}
-                        {selectedToken && isDepositView && <button className="btn btn-primary btn-sm"
-                                                                   onClick={() => (document.getElementById("buy_modal") as HTMLDialogElement).showModal()}>BUY</button>}
+                        {/*{selectedToken && isDepositView && <button className="btn btn-primary btn-sm"*/}
+                        {/*                                           onClick={() => (document.getElementById("buy_modal") as HTMLDialogElement).showModal()}>BUY</button>}*/}
                     </div>
                 </div>
             </div>
