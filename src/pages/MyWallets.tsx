@@ -6,6 +6,7 @@ import WalletItem from "@/widgets/WalletItem";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAccount } from 'wagmi';
+import {BadgeInfo} from "lucide-react";
 
 export default function MyWallets() {
   const [wallets, setWallets] = useState<Wallet[]>([]);
@@ -59,8 +60,8 @@ export default function MyWallets() {
         {account && <CreateNewWallet addWallet={addWallet} />}
       </div>
       <div className="flex flex-col mt-2 gap-2">
-        <div className="border-b-[1px] pb-2 flex flex-row justify-center">
-          <span className="text-center w-2/3">Michi wallets are represented as NFTs. Deposit supported tokens into these wallets to earn points.</span>
+        <div className="pb-2 flex flex-row">
+          <BadgeInfo className="text-[#FF9533]"/>&nbsp;<span>Michi wallets are represented as NFTs. Deposit supported tokens into these wallets to earn points.</span>
         </div>
         <div className="flex flex-col gap-5">
           {isLoading && wallets.length < 1 ? (

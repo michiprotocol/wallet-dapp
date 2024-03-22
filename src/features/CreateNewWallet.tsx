@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useToast } from "@/shared/ui/use-toast";
 import { useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import { decodeEthereumLog, numOfConfirmationsToWaitFor } from "@/lib/utils";
+import "./wallet.css"
 
 export default function CreateNewWallet({
   addWallet
@@ -74,7 +75,7 @@ export default function CreateNewWallet({
   }
   return (
     <>
-      <button className="btn bg-orange-200 hover:bg-orange-300" onClick={() => (document.getElementById('my_modal_1') as HTMLDialogElement).showModal()}>Create New Wallet</button>
+      <button className="btn btn-gradient text-white rounded-lg" onClick={() => (document.getElementById('my_modal_1') as HTMLDialogElement).showModal()}>Create New Wallet</button>
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box bg-background flex flex-col items-center gap-5">
           <p className="text-lg">

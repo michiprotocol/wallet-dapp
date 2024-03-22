@@ -1,0 +1,9 @@
+/* Custom button styles */
+.btn-gradient {
+    background: linear-gradient(90deg, #DA63FF 0%, #3437FA 100%);
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(90deg, #DA63FF 0%, #3437FA 100%);
+    /* Adjust the hover state gradient to your preference */
+}

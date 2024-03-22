@@ -84,17 +84,17 @@ export default function TransferWaller({
           onChange={(e) => setValue(e.target.value)} />
       </div>
       <div className="flex flex-row justify-center gap-5">
-        <button className="btn btn-md btn-accent" onClick={() => {
-          // const isValidAddress = /^0x[a-fA-F0-9]/i.test(value);
-          const isValidAddress = true;
-          if (isValidAddress) {
-            (document.getElementById('transfer_wallet_modal') as HTMLDialogElement).showModal()
-          } else {
-            sendInvalidAddressToast()
-          }
-        }}>
-          Sell Wallet
-        </button>
+        {/*<button className="btn btn-md btn-accent" onClick={() => {*/}
+        {/*  // const isValidAddress = /^0x[a-fA-F0-9]/i.test(value);*/}
+        {/*  const isValidAddress = true;*/}
+        {/*  if (isValidAddress) {*/}
+        {/*    (document.getElementById('transfer_wallet_modal') as HTMLDialogElement).showModal()*/}
+        {/*  } else {*/}
+        {/*    sendInvalidAddressToast()*/}
+        {/*  }*/}
+        {/*}}>*/}
+        {/*  Sell Wallet*/}
+        {/*</button>*/}
         <button
           className="btn btn-ghost"
           onClick={closeWalletView}

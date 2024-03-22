@@ -1,0 +1,23 @@
+.btn-outline {
+    border: 1px solid #DA63FF !important;
+    background: linear-gradient(90deg, #DA63FF 0%, #3437FA 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent; /* For Safari compatibility */
+    opacity: 1;
+    transition: opacity ease 0.3s;
+}
+
+.btn-outline:hover{
+    opacity: 0.7;
+}
+
+.btn{
+    transition: opacity 0.3s ease;
+    font-weight: 500!important;
+}
+
+.btn:hover{
+    opacity: 0.85;
+}

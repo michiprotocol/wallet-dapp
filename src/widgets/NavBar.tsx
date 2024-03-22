@@ -5,6 +5,7 @@ import { ConnectKitButton } from "connectkit";
 import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
 import { useLocation } from "react-router-dom";
+import "./navbar.css";
 
 const getLinkClass = (isActive: boolean) => classNames("text-md hover:text-blue-400", {
   "underline underline-offset-4 text-blue-300 custom-drop-shadow": isActive
@@ -16,7 +17,7 @@ export default function NavBar() {
 
   const { isConnected } = useAccount();
   return (
-    <div className="fixed z-[100] bg-secondary-background text-info px-2 py-2 flex justify-between items-center w-full border-b border-gray-500">
+    <div className="navbar fixed z-[100] bg-[#0C1023] text-info px-6 py-2 flex justify-between items-center w-full">
       <div className="flex flex-row justify-between items-center gap-3">
         <Logo />
         {isConnected && (
