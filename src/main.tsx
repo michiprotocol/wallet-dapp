@@ -14,14 +14,15 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <WagmiProvider config={wagmiConfig}>
-        <ConnectKitProvider theme="midnight" customTheme={{
+        <ConnectKitProvider customTheme={{
           "--ck-connectbutton-background": "var(--tw-blue)",
           "--ck-connectbutton-color": "black",
           "--ck-connectbutton-border-radius": "5px",
           "--ck-connectbutton-text-transform": "uppercase",
           "--ck-font-family": 'Anta, sans-serif',
           "--ck-connectbutton-hover-background": "var(--tw-blue--hover)",
-          "--ck-connectbutton-active-background": "var(--tw-blue--hover)"
+          "--ck-connectbutton-active-background": "var(--tw-blue--hover)",
+          "--ck-body-background": "#191E36",
         }}>
           <App />
         </ConnectKitProvider>

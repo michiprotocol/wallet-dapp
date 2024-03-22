@@ -5,15 +5,15 @@
 @tailwind utilities;
 
 :root {
-  --tw-blue: #8EE3FB;
-  --tw-blue-hover: #63D8FC;
+    --tw-blue: #d4a2e3;
+    --tw-blue-hover: #191E36;
 }
 
 body {
-  font-family: "Anta", sans-serif;
-  background: #0E0C20;
+    font-family: "Anta", sans-serif;
+    background: #0E0C20;
 }
 
 #buy_modal {
-  z-index: 30 !important;
+    z-index: 30 !important;
 }

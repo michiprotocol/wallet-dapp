@@ -54,7 +54,7 @@ export default function MyWallets() {
   }
 
   return (
-    <div className="min-h-screen px-6 py-4">
+    <div className="min-h-screen px-8 py-16">
       <div className="flex flex-row justify-between">
         <h3 className="font-bold text-3xl">My Wallets</h3>
         {account && <CreateNewWallet addWallet={addWallet} />}
