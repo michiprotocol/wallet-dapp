@@ -30,7 +30,6 @@ interface ApiResponse {
 async function fetchPoints(address: string): Promise<ApiResponse> {
     try {
         const response = await axios.get<ApiResponse>(`${import.meta.env.VITE_SERVER_URL}/getPoints?address=${address}`);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -101,43 +100,58 @@ export default function WalletItem({
         functionName: "getApprovedTokens",
     });
 
-    const fetchTokenBalances = async (acc: Address, isDeposited?: boolean) => {
+    const fetchTokenBalances = async (acc: Address) => {
+        setIsFetchingData(true);
+        try {
+            const {data} = await axios.post(`${import.meta.env.VITE_SERVER_URL}/token-balances`, {
+                tokenboundAccount: acc,
+                chain: defaultChain.id
+            });
+
+            const tokenMap = new Map(tokens.map(token => [token.token_address, token]));
+            // @ts-ignore
+            const newTokens = data.filter(token => approvedTokens.data!.some(approvedToken => approvedToken.toLowerCase() === token.token_address));
+
+            // @ts-ignore
+            newTokens.forEach(newToken => {
+                const existingToken = tokenMap.get(newToken.token_address);
+                // Update the token in the map if it does not exist or if the new token has a non-zero balance
+                if (!existingToken || newToken.balance > 0) {
+                    tokenMap.set(newToken.token_address, newToken);
+                }
+            });
+
+            const mergedTokens = Array.from(tokenMap.values());
+
+            setTokens(mergedTokens);
+            setIsFetchingData(false);
+        } catch (e) {
+            console.error(e);
+            setIsFetchingData(false);
+        }
+    };
+
+
+    const fetchDepositedTokens = async (acc: Address) => {
         setIsFetchingData(true);
         try {
             axios.post(`${import.meta.env.VITE_SERVER_URL}/token-balances`, {
                 tokenboundAccount: acc,
                 chain: defaultChain.id
             }).then(({data}: { data: Token[] }) => {
-                const newTokens = data.filter(token => {
-                    return approvedTokens.data!.some(approvedToken => approvedToken.toLowerCase() === token.token_address);
-                });
+                const newTokens = data.filter(token => approvedTokens.data!.some(approvedToken => approvedToken.toLowerCase() === token.token_address));
 
-                if (isDeposited) {
-                    // Keep disabled until deployed to Mainnet
+                // Keep disabled until deployed to Mainnet
+                fetchPoints(acc)
+                    .then(data => console.log(data))
+                    .catch(error => console.error(error));
+                setDepositedTokens(newTokens as DepositedToken[]);
 
-                    // fetchPoints("0x0561e5b036DdcF2401c2B6b486f85451d75760A2")
-                    //   .then(data => console.log(data))
-                    //   .catch(error => console.error(error));
-
-                    setDepositedTokens(newTokens as DepositedToken[]);
-                } else {
-                    const mergedTokens = [...newTokens, ...tokens];
-                    const arr: Token["token_address"][] = [];
-                    const uniqueTokens = mergedTokens.filter((token) => {
-                        if (arr.includes(token.token_address)) {
-                            return false;
-                        }
-                        arr.push(token.token_address);
-                        return true;
-                    });
-                    setTokens(uniqueTokens);
-                    setIsFetchingData(false);
-                }
             });
         } catch (e) {
             console.error(e);
-            setIsFetchingData(false);
         }
+        setIsFetchingData(false);
     };
 
     const fetchTokensData = useCallback(() => {
@@ -146,7 +160,7 @@ export default function WalletItem({
                 fetchTokenBalances(account.address);
             }
             if (tokenboundAccount) {
-                fetchTokenBalances(tokenboundAccount, true);
+                fetchDepositedTokens(tokenboundAccount);
             }
         }
     }, [approvedTokens.data, tokenboundAccount, account.address]);
