@@ -29,13 +29,15 @@ export default function TokensTable({
                             elPoints,
                             protocolPoints
                         } = token;
+
+                        console.log("token:",token)
                         return (
                             <tr key={index} className="border-t border-[#2F2F40]">
                                 <th>{name}</th>
                                 <td className="flex flex-row items-center gap-2">{formatEther(amount)} {isFetchingData &&
                                     <span className="loading loading-spinner"/>}</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <td>{elPoints || 0}</td>
+                                <td>{protocolPoints || 0}</td>
                             </tr>
                         );
                     })

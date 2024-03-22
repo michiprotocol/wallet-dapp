@@ -1,5 +1,5 @@
 import {abi, michiChestHelperAddress, michiChestOriginAddress} from "@/constants/contracts/MichiChest";
-import {DepositedToken, Token} from "@/constants/types/token";
+import {DepositedToken, symbolToPlatformMapping, Token} from "@/constants/types/token";
 import {Wallet} from "@/constants/types/wallet";
 import TransferWallet from "@/features/TransferWallet";
 import WalletViewComponent from "@/features/WalletView";
@@ -22,6 +22,8 @@ interface PointData {
 interface ApiResponse {
     address: string;
     results: Array<{
+        points: number;
+        elPoints: number;
         platform: string;
         data: PointData | { error: string; url: string };
     }>;
@@ -62,12 +64,14 @@ export default function WalletItem({
         {
             "token_address": "0x28df0f193d8e45073bc1db6f2347812c031ba818",
             "symbol": "YT-rsETH-25APR2024",
+            "platform": "renzo",
             "decimals": "18",
-            balance: 0
+            balance: 0,
         },
         {
             "token_address": "0xf28db483773e3616da91fdfa7b5d4090ac40cc59",
             "symbol": "YT-weETH-25APR2024",
+            "platform": "etherfi",
             "decimals": "18",
             balance: 0
         }
@@ -135,23 +139,51 @@ export default function WalletItem({
     const fetchDepositedTokens = async (acc: Address) => {
         setIsFetchingData(true);
         try {
-            axios.post(`${import.meta.env.VITE_SERVER_URL}/token-balances`, {
+            const {data: tokensData} = await axios.post(`${import.meta.env.VITE_SERVER_URL}/token-balances`, {
                 tokenboundAccount: acc,
                 chain: defaultChain.id
-            }).then(({data}: { data: Token[] }) => {
-                const newTokens = data.filter(token => approvedTokens.data!.some(approvedToken => approvedToken.toLowerCase() === token.token_address));
-
-                // Keep disabled until deployed to Mainnet
-                fetchPoints(acc)
-                    .then(data => console.log(data))
-                    .catch(error => console.error(error));
-                setDepositedTokens(newTokens as DepositedToken[]);
-
             });
+
+            const pointsResponse = await fetchPoints(acc); // Fetching points data
+
+            // Enhance tokens with platform data
+            // @ts-ignore
+            const enhancedTokens = tokensData.map((token): DepositedToken => {
+                const platform = Object.keys(symbolToPlatformMapping).find(key =>
+                    token.symbol.startsWith(key)
+                );
+                return {
+                    ...token,
+                    // @ts-ignore
+                    platform: platform ? symbolToPlatformMapping[platform] : undefined,
+                };
+            });
+
+            // Filter tokens that are approved and have a known platform
+            // @ts-ignore
+            const newTokens = enhancedTokens.filter((token): DepositedToken =>
+                approvedTokens.data!.some(approvedToken =>
+                    approvedToken.toLowerCase() === token.token_address) && token.platform
+            );
+
+            // Map points to their respective tokens based on the platform
+            // @ts-ignore
+            const tokensWithPoints: DepositedToken[] = newTokens.map((token): DepositedToken => {
+                const pointsData = pointsResponse.results.find(result => result.platform === token.platform);
+                return {
+                    ...token,
+                    elPoints: pointsData?.elPoints?.toFixed(2) || 0,
+                    protocolPoints: pointsData?.points?.toFixed(2) || 0,
+                };
+            });
+
+            setDepositedTokens(tokensWithPoints);
+            console.log("Tokens with Points", tokensWithPoints);
         } catch (e) {
             console.error(e);
+        } finally {
+            setIsFetchingData(false);
         }
-        setIsFetchingData(false);
     };
 
     const fetchTokensData = useCallback(() => {
