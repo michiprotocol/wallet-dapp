@@ -126,7 +126,7 @@ export default function WalletView(
 
             toast({
                 title: "Spending Cap Approved successfully! 🎉",
-                description: `${formatEther((selectedTokenAllowance ?? 0) as BigNumberish)} of ${selectedToken?.symbol} was approved for your account.  You can now deposit!`,
+                description: `${selectedToken?.symbol} was approved for your account.  You can now deposit!`,
             });
 
             runDeposit();
