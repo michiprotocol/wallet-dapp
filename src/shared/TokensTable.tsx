@@ -16,7 +16,7 @@ export default function TokensTable({
                 <tr className="text-info text-[#8C8B94] border-b border-[#2F2F40]">
                     <th>Token</th>
                     <th>Amount</th>
-                    <th>EL Points</th>
+                    <th>Eigenlayer Points</th>
                     <th>Protocol Points</th>
                 </tr>
                 </thead>

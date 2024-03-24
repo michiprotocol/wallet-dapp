@@ -195,8 +195,10 @@ export default function WalletItem({
 
             // Filter tokens to exclude those with all zero values for balance, elPoints, and protocolPoints
             let results = tokensWithPoints.filter(token =>
-                !(token.balance === 0 && token.elPoints === 0 && token.protocolPoints === 0)
+                !(token.balance === 0 && Number(token.elPoints) === 0 && Number(token.protocolPoints) === 0)
             );
+
+            console.log(results)
             // @ts-ignore
             setDepositedTokens(results);
         } catch (e) {

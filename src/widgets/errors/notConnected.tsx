@@ -1,5 +1,6 @@
 import React from "react";
 import {ConnectKitButton} from "connectkit";
+import "./notConnected.css";
 
 const NotConnected = () => {
     return (
@@ -13,12 +14,11 @@ const NotConnected = () => {
                     start earning points.
                 </p>
                 <img src="./assets/phone.png" alt="Connect Placeholder"/>
-                <div className="my-4 flex-col justify-center items-center">
-                    <p className="my-4">To get started, connect your wallet and create your first Michi Wallet</p>
-                    <div className="my-4 flex-col justify-center items-center">
-                        <ConnectKitButton/>
-                    </div>
+                <p className="my-4">To get started, connect your wallet and create your first Michi Wallet</p>
+                <div className="connect-button">
+                    <ConnectKitButton/>
                 </div>
+
             </div>
         </div>
     );
