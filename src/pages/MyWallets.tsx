@@ -61,7 +61,7 @@ export default function MyWallets() {
         {account && <CreateNewWallet addWallet={addWallet} />}
       </div>
       <div className="flex flex-col mt-2 gap-2">
-        <div className="pb-2 flex flex-row">
+        <div className="pb-2 flex flex-row my-2 mt-4">
           <BadgeInfo className="text-[#FF9533]"/>&nbsp;<span>Michi wallets are represented as NFTs. Deposit supported tokens into these wallets to earn points.</span>
         </div>
         <div className="flex flex-col gap-5">

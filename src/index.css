@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,10 +10,21 @@
 }
 
 body {
-    font-family: "Anta", sans-serif;
     background: #0E0C20;
+    font-family: "Nunito Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings: "wdth" 100,
+    "YTLC" 500;
 }
 
 #buy_modal {
     z-index: 30 !important;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #DA63FF 0%, #3437FA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

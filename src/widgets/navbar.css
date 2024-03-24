@@ -1,3 +1,10 @@
 .navbar{
     box-shadow: 0px -6px 40px 0px #DA63FF1A inset, 0px 4px 20px 0px #00000059;
 }
+
+.link-active{
+    background: linear-gradient(90deg, #DA63FF 0%, #3437FA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}

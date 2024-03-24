@@ -7,8 +7,8 @@ import {useAccount} from "wagmi";
 import {useLocation} from "react-router-dom";
 import "./navbar.css";
 
-const getLinkClass = (isActive: boolean) => classNames("text-md hover:text-blue-400", {
-    "underline underline-offset-4 text-blue-300 custom-drop-shadow": isActive
+const getLinkClass = (isActive: boolean) => classNames("text-md ", {
+    "link-active": isActive
 });
 
 export default function NavBar() {
