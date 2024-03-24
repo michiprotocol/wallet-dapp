@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAccount } from 'wagmi';
 import {BadgeInfo} from "lucide-react";
+import NotConnected from "@/widgets/errors/notConnected";
 
 export default function MyWallets() {
   const [wallets, setWallets] = useState<Wallet[]>([]);
@@ -50,11 +51,11 @@ export default function MyWallets() {
   }
 
   if (!account.isConnected) {
-    return null;
+    return <NotConnected/>
   }
 
   return (
-    <div className="min-h-screen px-8 py-16">
+    <div className="px-8 py-16">
       <div className="flex flex-row justify-between">
         <h3 className="font-bold text-3xl">My Wallets</h3>
         {account && <CreateNewWallet addWallet={addWallet} />}

@@ -30,7 +30,6 @@ export default function TokensTable({
                             protocolPoints
                         } = token;
 
-                        console.log("token:",token)
                         return (
                             <tr key={index} className="border-t border-[#2F2F40]">
                                 <th>{name}</th>

@@ -1,5 +1,5 @@
 import {abi, michiChestHelperAddress, michiChestOriginAddress} from "@/constants/contracts/MichiChest";
-import {DepositedToken, symbolToPlatformMapping, Token} from "@/constants/types/token";
+import {DepositedToken, symbolToPlatformMapping, Token, tokenTypes} from "@/constants/types/token";
 import {Wallet} from "@/constants/types/wallet";
 import TransferWallet from "@/features/TransferWallet";
 import WalletViewComponent from "@/features/WalletView";
@@ -64,7 +64,7 @@ export default function WalletItem({
         {
             "token_address": "0x28df0f193d8e45073bc1db6f2347812c031ba818",
             "symbol": "YT-rsETH-25APR2024",
-            "platform": "renzo",
+            "platform": "kelp",
             "decimals": "18",
             balance: 0,
         },
@@ -72,6 +72,13 @@ export default function WalletItem({
             "token_address": "0xf28db483773e3616da91fdfa7b5d4090ac40cc59",
             "symbol": "YT-weETH-25APR2024",
             "platform": "etherfi",
+            "decimals": "18",
+            balance: 0
+        }, {
+
+            "token_address": "0x05735b65686635f5c87aa9d2dae494fb2e838f38",
+            "symbol": "YT-ezETH-27JUN2024",
+            "platform": "renzo",
             "decimals": "18",
             balance: 0
         }
@@ -113,6 +120,8 @@ export default function WalletItem({
             });
 
             const tokenMap = new Map(tokens.map(token => [token.token_address, token]));
+            console.log("Token Map:", tokenMap);
+
             // @ts-ignore
             const newTokens = data.filter(token => approvedTokens.data!.some(approvedToken => approvedToken.toLowerCase() === token.token_address));
 
@@ -136,7 +145,8 @@ export default function WalletItem({
     };
 
 
-    const fetchDepositedTokens = async (acc: Address) => {
+    // @ts-ignore
+    const fetchDepositedTokens = async (acc) => {
         setIsFetchingData(true);
         try {
             const {data: tokensData} = await axios.post(`${import.meta.env.VITE_SERVER_URL}/token-balances`, {
@@ -144,11 +154,13 @@ export default function WalletItem({
                 chain: defaultChain.id
             });
 
+            console.log("Token Data", tokensData);
+
             const pointsResponse = await fetchPoints(acc); // Fetching points data
 
-            // Enhance tokens with platform data
+            // Enhance tokensData with platform data
             // @ts-ignore
-            const enhancedTokens = tokensData.map((token): DepositedToken => {
+            const enhancedTokensData = tokensData.map((token) => {
                 const platform = Object.keys(symbolToPlatformMapping).find(key =>
                     token.symbol.startsWith(key)
                 );
@@ -159,32 +171,41 @@ export default function WalletItem({
                 };
             });
 
-            // Filter tokens that are approved and have a known platform
+            // Filter tokensData that are approved and have a known platform
             // @ts-ignore
-            const newTokens = enhancedTokens.filter((token): DepositedToken =>
-                approvedTokens.data!.some(approvedToken =>
+            const approvedAndKnownPlatformTokens = enhancedTokensData.filter((token) =>
+                // @ts-ignore
+                approvedTokens.data.some(approvedToken =>
                     approvedToken.toLowerCase() === token.token_address) && token.platform
             );
 
-            // Map points to their respective tokens based on the platform
-            // @ts-ignore
-            const tokensWithPoints: DepositedToken[] = newTokens.map((token): DepositedToken => {
-                const pointsData = pointsResponse.results.find(result => result.platform === token.platform);
+            // Now we map over tokenTypes to include data from pointsResponse and newTokens
+            const tokensWithPoints = tokenTypes.map((tokenType) => {
+                const pointsData = pointsResponse.results.find(result => result.platform === tokenType.platform);
+                // @ts-ignore
+                const matchingNewToken = approvedAndKnownPlatformTokens.find(newToken => newToken.token_address === tokenType.token_address);
+
                 return {
-                    ...token,
+                    ...tokenType,
+                    balance: matchingNewToken ? matchingNewToken.balance : tokenType.balance, // Use balance from newTokens if available
                     elPoints: pointsData?.elPoints?.toFixed(2) || 0,
                     protocolPoints: pointsData?.points?.toFixed(2) || 0,
                 };
             });
 
-            setDepositedTokens(tokensWithPoints);
-            console.log("Tokens with Points", tokensWithPoints);
+            // Filter tokens to exclude those with all zero values for balance, elPoints, and protocolPoints
+            let results = tokensWithPoints.filter(token =>
+                !(token.balance === 0 && token.elPoints === 0 && token.protocolPoints === 0)
+            );
+            // @ts-ignore
+            setDepositedTokens(results);
         } catch (e) {
             console.error(e);
         } finally {
             setIsFetchingData(false);
         }
     };
+
 
     const fetchTokensData = useCallback(() => {
         if (approvedTokens.data) {
