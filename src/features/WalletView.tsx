@@ -150,6 +150,7 @@ export default function WalletView(
     const handleApprove = async (token: Token) => {
         setIsProcessing(true);
         if (!approvedToDeposit) {
+            console.log("token:", tokenABI)
             await writeApprovalContractAsync({
                 account: account.address,
                 abi: tokenABI!,
