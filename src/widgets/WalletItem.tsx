@@ -120,8 +120,6 @@ export default function WalletItem({
             });
 
             const tokenMap = new Map(tokens.map(token => [token.token_address, token]));
-            console.log("Token Map:", tokenMap);
-
             // @ts-ignore
             const newTokens = data.filter(token => approvedTokens.data!.some(approvedToken => approvedToken.toLowerCase() === token.token_address));
 
@@ -153,8 +151,6 @@ export default function WalletItem({
                 tokenboundAccount: acc,
                 chain: defaultChain.id
             });
-
-            console.log("Token Data", tokensData);
 
             const pointsResponse = await fetchPoints(acc); // Fetching points data
 
@@ -198,7 +194,6 @@ export default function WalletItem({
                 !(token.balance === 0 && Number(token.elPoints) === 0 && Number(token.protocolPoints) === 0)
             );
 
-            console.log(results)
             // @ts-ignore
             setDepositedTokens(results);
         } catch (e) {

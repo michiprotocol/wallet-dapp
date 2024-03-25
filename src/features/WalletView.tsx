@@ -80,7 +80,6 @@ export default function WalletView(
     const maxAmount = useMemo(() => {
         if (selectedToken?.balance) {
             let balance = selectedToken.balance;
-            console.log("Balance:", formatEther(balance));
             return formatEther(balance);
         }
     }, [selectedToken?.balance]);
