@@ -7,7 +7,7 @@ import {useToast} from "@/shared/ui/use-toast";
 import {defaultChain, wagmiConfig} from "@/wagmi";
 import {WalletView as WalletViewType} from "@/widgets/WalletItem";
 import {TokenboundClient} from "@tokenbound/sdk";
-import {BigNumber, BigNumberish, ethers} from "ethers";
+import {BigNumberish, ethers} from "ethers";
 import {formatEther, parseEther} from "ethers/lib/utils";
 import {useEffect, useMemo, useRef, useState} from "react";
 import {Address, Hash} from "viem";
@@ -15,7 +15,6 @@ import {
     useAccount,
     useReadContract,
     useWalletClient,
-    useWatchContractEvent,
     useWriteContract,
     useWaitForTransactionReceipt
 } from "wagmi";
@@ -80,12 +79,8 @@ export default function WalletView(
 
     const maxAmount = useMemo(() => {
         if (selectedToken?.balance) {
-            let balance;
-            if (isDepositView) {
-                balance = selectedToken.balance;
-            } else {
-                balance = selectedToken.balance;
-            }
+            let balance = selectedToken.balance;
+            console.log("Balance:", formatEther(balance));
             return formatEther(balance);
         }
     }, [selectedToken?.balance]);
@@ -150,7 +145,6 @@ export default function WalletView(
     const handleApprove = async (token: Token) => {
         setIsProcessing(true);
         if (!approvedToDeposit) {
-            console.log("token:", tokenABI)
             await writeApprovalContractAsync({
                 account: account.address,
                 abi: tokenABI!,
@@ -159,7 +153,7 @@ export default function WalletView(
                 functionName: "approve",
                 args: [
                     michiChestHelperAddress,
-                    +input * (10 ** 18)
+                    parseEther(input)
                 ],
             }).catch((e) => {
                 setIsProcessing(false);
@@ -184,7 +178,7 @@ export default function WalletView(
             args: [
                 selectedToken!.token_address,
                 tokenboundAccount,
-                +input * (10 ** 18),
+                parseEther(input),
                 false
             ],
         });
