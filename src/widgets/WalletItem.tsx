@@ -258,14 +258,14 @@ export default function WalletItem({
                 {WalletView.NONE === view && (
                     <div className="flex flex-row justify-center gap-5 mt-1">
                         <button
-                            className="btn btn-sm btn-gradient text-white rounded-lg"
+                            className="btn btn-gradient text-white rounded-lg"
                             onClick={() => setView(WalletView.DEPOSIT)}
                         >
                             Deposit
                         </button>
                         {canWithdraw && (
                             <button
-                                className="px-2 btn-outline rounded-lg btn-sm"
+                                className="px-2 btn-outline rounded-lg"
                                 onClick={() => setView(WalletView.WITHDRAW)}
                             >
                                 Withdraw

@@ -243,7 +243,7 @@ export default function WalletView(
                         </div>
                     </div>
                     <div className="flex flex-row gap-3">
-                        {maxAmount && <button className="btn btn-sm btn-gradient text-white rounded-lg mt-1"
+                        {maxAmount && <button className="btn btn-gradient text-white rounded-lg mt-1"
                                               onClick={() => setInput(maxAmount)}>MAX</button>}
                         {/*{selectedToken && isDepositView && <button className="btn btn-primary btn-sm"*/}
                         {/*                                           onClick={() => (document.getElementById("buy_modal") as HTMLDialogElement).showModal()}>BUY</button>}*/}
@@ -252,7 +252,7 @@ export default function WalletView(
             </div>
             <div className="flex flex-row justify-center gap-5">
                 <button
-                    className={cn("btn btn-sm btn-gradient text-white rounded-lg", {
+                    className={cn("btn btn-gradient text-white rounded-lg", {
                             "btn-success hover:bg-success/90": isDepositView,
                             "btn-error": !isDepositView,
                             "cursor-not-allowed": !selectedToken || !input || isProcessing
@@ -282,7 +282,7 @@ export default function WalletView(
                     )}
                 </button>
                 <button
-                    className="btn-outline rounded-lg btn-sm"
+                    className="btn-outline rounded-lg"
                     onClick={closeWalletView}
                 >
                     Cancel
@@ -299,7 +299,7 @@ export default function WalletView(
                     />
                     <button
                         onClick={() => closeModal()}
-                        className="btn btn-sm btn-circle btn-ghost absolute right-[0.7px] top-[0.7px]"
+                        className="btn btn-circle btn-ghost absolute right-[0.7px] top-[0.7px]"
                     >
                         ✕
                     </button>

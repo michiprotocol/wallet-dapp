@@ -80,13 +80,13 @@ export default function CreateNewWallet({
                 Wallet
             </button>
             <dialog id="my_modal_1" className="modal">
-                <div className="modal-box bg-[#191E36] flex flex-col items-center gap-5 text-sm">
+                <div className="modal-box bg-[#191E36] flex flex-col items-center gap-8 text-lg px-10 pt-10">
                     <p>
                         Creating a wallet involves minting a Michi NFT and registering a wallet that is owned by the
                         NFT. Once minted, the wallet will show up on your dashboard. This wallet address on all EVM
                         chains is owned and controlled by this NFT.
                     </p>
-                    <button className="btn btn-sm btn-gradient text-white rounded-lg" onClick={createNewWallet}>
+                    <button className="btn btn-gradient text-white rounded-lg" onClick={createNewWallet}>
                         {isLoading && <span className="loading loading-spinner"/>}
                         {isLoading ? "Creating a" : "Create"} New Wallet
                     </button>
