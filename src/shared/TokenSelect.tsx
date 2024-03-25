@@ -25,7 +25,7 @@ export default function TokenSelect({ setSelectedToken, resetInput, selectedToke
       }}
       disabled={isDisabled}
     >
-      <SelectTrigger className="w-[140px]">
+      <SelectTrigger className="w-[140px] bg-[#191E36]">
         <SelectValue placeholder="Select token" />
       </SelectTrigger>
       <SelectContent>
