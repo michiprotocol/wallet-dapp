@@ -265,7 +265,7 @@ export default function WalletItem({
                         </button>
                         {canWithdraw && (
                             <button
-                                className="px-2 btn-outline rounded-lg"
+                                className="btn btn-outline rounded-lg"
                                 onClick={() => setView(WalletView.WITHDRAW)}
                             >
                                 Withdraw
