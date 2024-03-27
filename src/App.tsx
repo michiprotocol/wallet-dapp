@@ -45,7 +45,6 @@ const Layout = () => {
     useEffect(() => {
         // Check local storage for the hasAgreedToTerms flag
         const agreement = localStorage.getItem("hasAgreedToTerms");
-        console.log("hello", agreement);
         if (agreement) {
             setHasAgreedToTerms(JSON.parse(agreement) === true);
         }

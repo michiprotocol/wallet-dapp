@@ -4,7 +4,6 @@ import {
 import {createConfig} from "wagmi";
 import {Chain, arbitrum, mainnet} from "wagmi/chains";
 
-console.log("chain",import.meta.env.VITE_CHAIN);
 export const defaultChain = import.meta.env.VITE_CHAIN === "ARBITRUM" ? arbitrum : mainnet;
 const chains = [defaultChain] as [Chain];
 
