@@ -17,7 +17,7 @@ export default function TokensTable({
                     <th>Token</th>
                     <th>Amount</th>
                     <th>Eigenlayer Points</th>
-                    <th>Protocol Points</th>
+                    <th>LRT Points</th>
                 </tr>
                 </thead>
                 <tbody>
