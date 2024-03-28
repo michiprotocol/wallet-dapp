@@ -9,11 +9,11 @@ const Footer = () => {
             <div className="px-8 mx-auto flex justify-between items-center">
                 {/* Social Links */}
                 <div className="flex gap-4">
-                    <a href="https://twitter.com/yourTwitterHandle"
+                    <a href="https://twitter.com/michiprotocol" target="_blank" rel="noopener noreferrer"
                        className="text-white hover:text-blue-400 transition duration-300">
                         <Twitter size={24}/>
                     </a>
-                    <a href="https://discord.gg/yourDiscordInvite"
+                    <a href="https://discord.gg/apDtPzn4A4" target="_blank" rel="noopener noreferrer"
                        className="text-white hover:text-blue-500 transition duration-300">
                         <MessageCircle size={24}/>
                     </a>
