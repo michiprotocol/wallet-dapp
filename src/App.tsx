@@ -6,6 +6,7 @@ import {Outlet, RouterProvider, createBrowserRouter} from "react-router-dom";
 import {Toaster} from "./shared/ui/toaster";
 import Terms from "@/widgets/terms";
 import {useEffect, useState} from "react";
+import Footer from "@/widgets/footer";
 
 export default function App() {
     const router = createBrowserRouter([
@@ -69,6 +70,7 @@ const Layout = () => {
                 <Outlet/> {/* This is where the nested routes get rendered */}
             </div>
             <Toaster/>
+            <Footer/>
         </div>
     );
 };
